@@ -92,7 +92,7 @@
       </b-card>
       <br />
     </div>
-    <a href="/help.html">HELP</a>
+    
     
   </b-container>
 </template>
