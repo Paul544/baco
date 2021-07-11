@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baco-ui-deployment
+  namespace: sirius
+  labels:
+    app: baco-ui
+spec:
+  selector:
+    matchLabels:
+      app: baco-ui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: baco-ui
+    spec:
+      containers:
+        - name:  baco-ui-container
+          image: siriuscontainerregistery.azurecr.io/sirius.project.ui:20210707.2       
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80 
+      imagePullSecrets:
+        - name: siriuscontainerregisterysecret
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: baco-ui-service
+  namespace: sirius
+spec:
+  type: LoadBalancer
+  selector:
+    app: baco-ui
+  ports:    
+      - protocol: TCP
+        port: 80
+        name: http
